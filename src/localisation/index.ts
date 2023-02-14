@@ -24,6 +24,8 @@ export const localisation = async () => {
   if (!currencyCode) {
     // get IP info
     const info = await ipinfo();
+    localStorage.setItem('countryCode', info.country);
+    window.aiCoreParams.countryCode = info.country;
 
     /**
      * define the accepted currencies
