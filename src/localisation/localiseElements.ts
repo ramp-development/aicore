@@ -1,4 +1,10 @@
 export const localiseElements = (toLocalise: [], currency: 'GBP' | 'USD' | 'EUR') => {
+  const localiseButtons = [...document.querySelectorAll('[data-localise-currency]')];
+  localiseButtons.forEach((button) => {
+    button.classList.remove('is-current');
+    if (button.dataset.localiseCurrency === currency) button.classList.add('is-current');
+  });
+
   toLocalise.forEach((element) => {
     const type = element.dataset.localiseType;
     const values = element.dataset.localiseValues.split(',');
