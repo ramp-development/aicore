@@ -25,6 +25,15 @@ export const localisation = async () => {
   localiseElements(toLocalise, currencyCode);
   localStorage.setItem('currencyCode', currencyCode);
 
+  const localiseButtons = [...document.querySelectorAll('[data-localise-region]')];
+  localiseButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const region = button.dataset.localiseRegion;
+      localiseElements(toLocalise, region);
+      localStorage.setItem('currencyCode', region);
+    });
+  });
+
   /**
    * 1. check if there is a localstate variable containing their currency
    *    a. show that currency

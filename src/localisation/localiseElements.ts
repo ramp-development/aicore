@@ -1,6 +1,4 @@
 export const localiseElements = (toLocalise: [], currency: 'GBP' | 'USD' | 'EUR') => {
-  console.log(toLocalise);
-  console.log(currency);
   toLocalise.forEach((element) => {
     const type = element.dataset.localiseType;
     const values = element.dataset.localiseValues.split(',');
@@ -26,9 +24,8 @@ export const localiseElements = (toLocalise: [], currency: 'GBP' | 'USD' | 'EUR'
         maximumFractionDigits: 0,
       }).format(localiseTo);
     } else if (type === 'text') {
-      element.textContent === localiseTo;
+      element.textContent = localiseTo;
     } else if (type === 'link') {
-      console.dir(element);
       element.textContent = localiseTo;
       element.href = `${element.protocol}${localiseTo.replace(/\s+/g, '')}`;
     }
