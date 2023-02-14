@@ -1,5 +1,4 @@
-import { countryToCurrency } from './countryToCurrency';
-import { ipinfo } from './ipinfo';
+import { getCodes } from './getCodes';
 import { localiseElements } from './localiseElements';
 
 /**
@@ -20,32 +19,14 @@ export const localisation = async () => {
   const toLocalise = document.querySelectorAll('[data-localise-values]');
   if (!toLocalise) return;
 
-  let currencyCode = localStorage.getItem('currencyCode');
-  if (!currencyCode) {
-    // get IP info
-    const info = await ipinfo();
-    localStorage.setItem('countryCode', info.country);
-    window.aiCoreParams.countryCode = info.country;
+  const codes = await getCodes();
 
-    /**
-     * define the accepted currencies
-     * the first of which will be taken as the default
-     */
-    const acceptedCurrencies = ['GBP', 'USD', 'EUR'];
-    const userCurrencyCode = countryToCurrency[info.country];
-    currencyCode = acceptedCurrencies.includes(userCurrencyCode)
-      ? userCurrencyCode
-      : acceptedCurrencies[0];
-  }
-
-  localiseElements(toLocalise, currencyCode);
-  localStorage.setItem('currencyCode', currencyCode);
-  window.aiCoreParams.currencyCode = currencyCode;
+  localiseElements(toLocalise, codes?.currencyCode);
 
   const localiseButtons = [...document.querySelectorAll('[data-localise-currency]')];
   localiseButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      currencyCode = button.dataset.localiseCurrency;
+      const currencyCode = button.dataset.localiseCurrency;
       localiseElements(toLocalise, currencyCode);
       localStorage.setItem('currencyCode', currencyCode);
       window.aiCoreParams.currencyCode = currencyCode;
