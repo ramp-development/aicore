@@ -1,3 +1,4 @@
+import { codeToCountry } from './codeToCountry';
 import { countryToCurrency } from './countryToCurrency';
 import { ipinfo } from './ipinfo';
 
@@ -26,6 +27,7 @@ export const getCodes = async () => {
 
   const codes = {
     countryCode,
+    country: codeToCountry[countryCode],
     region,
     currencyCode,
   };
