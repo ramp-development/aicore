@@ -1,3 +1,5 @@
+import { updateInputs } from '$utils/updateInputs';
+
 import { getCodes } from './getCodes';
 import { localiseElements } from './localiseElements';
 
@@ -20,6 +22,7 @@ export const localisation = async () => {
   if (!toLocalise) return;
 
   const codes = await getCodes();
+  updateInputs();
 
   localiseElements(toLocalise, codes?.currencyCode);
 
